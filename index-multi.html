@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"
+            integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div id="main">
+    <div class="header">
+        <h1>JSON Diff</h1>
+        <h3>The semantic JSON compare tool</h3>
+
+        <div class="weak">
+            <p>
+                Validate, format, and compare two JSON documents. See the differences between the objects instead of
+                just the new lines and mixed up properties.
+            </p>
+
+            <p>
+                Created by <a href="http://www.zackgrossbart.com">Zack Grossbart</a>. Get the <a
+                    href="https://github.com/zgrossbart/jdd">source code</a>.
+            </p>
+
+            <p>
+                Big thanks owed to the team behind <a href="http://www.jsonlint.com">JSONLint</a>.
+            </p>
+
+        </div>
+    </div>
+</div>
+<h1>Compare 2 list api wrap jsondiff</h1>
+<textarea spellcheck="false" class="list-url " id="list-url-left" placeholder="Enter list URL to JSON" tabindex="1"
+          rows="30" cols="85"></textarea>
+<textarea spellcheck="false" class="list-url " id="list-url-right" placeholder="Enter list URL to JSON" tabindex="1"
+          rows="30" cols="85"></textarea>
+<button id="compare">Compare 2 List</button>
+<div class="diffcontainer">
+    <div id="report">
+    </div>
+</div>
+<script>
+    document.getElementById('compare').addEventListener('click', function () {
+        const leftUrls = document.getElementById('list-url-left').value;
+        const rightUrls = document.getElementById('list-url-right').value;
+        processCompare(_.split(leftUrls, "\n"), _.split(rightUrls, "\n"))
+    })
+
+    function validate(leftArr, rightArr) {
+        return leftArr.length === rightArr.length && rightArr.length > 0
+    }
+
+    function processCompare(leftArr, rightArr) {
+        if (validate(leftArr, rightArr) === false) return null;
+        if (document.getElementById('report').childElementCount){
+            document.getElementById('report').textContent = '';
+        }
+        _.forEach(leftArr, function (value, key) {
+            const e = document.createElement('iframe');
+            e.setAttribute('src', 'index.html?left=' + value + '&right=' + rightArr[key]);
+            e.setAttribute('width', '100%')
+            e.setAttribute('height', '300')
+            document.getElementById('report').appendChild(e)
+        })
+    }
+</script>
+</body>
+</html>
