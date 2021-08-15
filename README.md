@@ -18,7 +18,8 @@ You can also run JSONDiff in a Docker container if you want to run it in your da
 
 ```
 docker build -t jdd:v1 .
-docker run -i --name jdd -p 127.0.0.1:8080:80/tcp jdd:v1
+docker run -d -v ${PWD}:/var/www/html -i --name jdd -p 127.0.0.1:7777:9000/tcp jdd:v1 
+docker exec -it jdd  sh -c "nohup php -S 0.0.0.0:9000 -F proxy.php  &> /dev/null &"
 ```
 
 ## Load my JSON data from the Internet
