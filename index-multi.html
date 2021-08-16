@@ -59,7 +59,7 @@
             const e = document.createElement('iframe');
             const p = document.createElement('p');
             p.textContent=value+' \n vs \n '+rightArr[key]
-            e.setAttribute('src', 'index.html?left=' + encodeURI(value) + '&right=' + encodeURI(rightArr[key]));
+            e.setAttribute('src', 'index.html?left=' + encodeURI(value) + '&right=' +  encodeURI(rightArr[key]));
             e.setAttribute('width', '100%')
             e.setAttribute('height', '300')
             document.getElementById('report').appendChild(p)
